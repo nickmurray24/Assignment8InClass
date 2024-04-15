@@ -24,6 +24,20 @@ permissions:
   contents: read
 
 jobs:
+
+  test:
+    runs-on: windows-latest
+    steps:
+    - name: Test
+      run: echo LINT and build
+      
+  lint:
+    runs-on: windows-latest
+    steps:
+    - name: RunLint
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: echo LINT
+      
   build:
     runs-on: windows-latest
 
