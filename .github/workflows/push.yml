@@ -21,7 +21,7 @@ env:
   BUILD_CONFIGURATION: Release
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
       
@@ -80,4 +80,41 @@ jobs:
     - name: TestBuild
       working-directory: ${{env.GITHUB_WORKSPACE}}
       run: echo build
+
+  SaveBinary:
+    needs: [test]
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: DownloadBinaries
+      uses: actions/download-artifact@v3
+      with:
+        name: my-artifact
+        path: x64\Release
+
+    - name: stage
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: copy  x64\Release\PipelineExe.exe
+
+    - name: addEmail
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: git config --global user.email "nicholasellis24@gmail.com"
+
+    - name: addName
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: git config --global user.name "Nick Murray"
+
+    - name: add
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: git add PipelineExe.exe
+
+    - name: commit
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: git commit -m "generated"
+
+    - name: push
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: git push
       
