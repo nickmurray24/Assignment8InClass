@@ -59,7 +59,7 @@ jobs:
         if-no-files-found: error
 
     - name: Setup VSTest.exe
-      uses: Malcomnixon/Setup-VTest@v4
+      uses: Malcomnixon/Setup-VSTest@v4
 
     - name: DownloadBinaries
       uses: actions/download-artifact@v3
