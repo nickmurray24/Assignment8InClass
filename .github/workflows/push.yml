@@ -54,8 +54,4 @@ jobs:
   
   test:
     runs-on: windows-latest
-    steps:
-    - name: TestLint
-      run: echo lint
-    - name: TestBuild
-      run: echo build
+    needs: [lint, build]
