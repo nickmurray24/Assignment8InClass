@@ -24,12 +24,6 @@ permissions:
   contents: read
 
 jobs:
-
-  test:
-    runs-on: windows-latest
-    steps:
-    - name: Test
-      run: echo LINT and build
       
   lint:
     runs-on: windows-latest
@@ -56,3 +50,12 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ${{env.SOLUTION_FILE_PATH}}
+
+  
+  test:
+    runs-on: windows-latest
+    steps:
+    - name: TestLint
+      run: echo lint
+    - name: TestBuild
+      run: echo build
